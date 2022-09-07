@@ -10,10 +10,10 @@ public class LineTests
         var line = new Line(readedLine);
 
         Assert.True(line.IsValid);
-        Assert.Equal(4, line.Content.Length);
+        Assert.Equal(4, line.Content.Count);
         Assert.Equal("0000", line.Register);
-        Assert.Equal("L01C01", line.Content.First());
-        Assert.Equal("L01C04", line.Content.Last());
+        Assert.Equal("L01C01", line.Content.First().Value);
+        Assert.Equal("L01C04", line.Content.Last().Value);
     }
 
     [Fact]

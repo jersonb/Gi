@@ -7,7 +7,7 @@ public struct Line
         Problems = new List<string>();
         Register = "";
         IsValid = false;
-        Content = Array.Empty<string>();
+        Content = new Dictionary<int, string>();
 
         if (!line.StartsWith("|"))
             Problems = Problems.Append("Problema de abertura da linha");
@@ -28,12 +28,16 @@ public struct Line
 
         Register = content[1];
         IsValid = !Problems.Any();
-        Content = content[2..^1];
+  
+        var position =1;
+        foreach (var item in content[2..^1])
+            Content.Add(position++, item);
+        
     }
     public static implicit operator Line(string line)
         => new Line(line);
     public string Register { get; }
-    public string[] Content { get; }
+    public Dictionary<int,string> Content { get; }
     public bool IsValid { get; }
     public IEnumerable<string> Problems { get; }
 }

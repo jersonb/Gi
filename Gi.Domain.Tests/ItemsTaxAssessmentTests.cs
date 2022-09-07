@@ -28,7 +28,7 @@ public class ItemsTaxAssessmentTests
         .Select(l => new
         {
             Position = l.Key,
-            Assessment = l.Value.Content[0],
+            Assessment = l.Value.Content[1],
             LineApuration = lines[l.Key - 1],
             Items = lines.Where(x => x.Key > l.Key).TakeWhile(x => x.Value.Register == "8525")
         });
@@ -40,8 +40,8 @@ public class ItemsTaxAssessmentTests
         Assert.Equal("2", result.Last().Assessment);
         Assert.Equal("8505", result.First().LineApuration.Register);
         Assert.Equal("8505", result.Last().LineApuration.Register);
-        Assert.Equal("", result.First().LineApuration.Content[1]);
-        Assert.Equal("41560", result.Last().LineApuration.Content[1]);
+        Assert.Equal("", result.First().LineApuration.Content[2]);
+        Assert.Equal("41560", result.Last().LineApuration.Content[2]);
         Assert.Equal(3, result.First().Items.Count());
         Assert.Equal(4, result.Last().Items.Count());
     }
