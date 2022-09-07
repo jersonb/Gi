@@ -5,6 +5,9 @@ public struct Line
     public Line(string line)
     {
         Problems = new List<string>();
+        Register = "";
+        IsValid = false;
+        Content = Array.Empty<string>();
 
         if (!line.StartsWith("|"))
             Problems = Problems.Append("Problema de abertura da linha");
@@ -12,10 +15,16 @@ public struct Line
         if (!line.EndsWith("|"))
             Problems = Problems.Append("Problema de fechamento de linha");
 
+        if (Problems.Any())
+            return;
+
         var content = line.Split("|");
 
         if (content[1].Length != 4)
+        {
             Problems = Problems.Append("Problema de quantidade de caracteres no registro");
+            return;
+        }
 
         Register = content[1];
         IsValid = !Problems.Any();
@@ -25,5 +34,5 @@ public struct Line
     public string Register { get; }
     public string[] Content { get; }
     public bool IsValid { get; }
-    public IEnumerable<string> Problems { get; set; }
+    public IEnumerable<string> Problems { get; }
 }

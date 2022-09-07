@@ -12,6 +12,7 @@ public struct SpedFile
                 continue;
                 
             var line = new Line(readedLine);
+            
             if (!line.IsValid)
                 throw new ArgumentException($"Linha {lineCount}: {string.Join(", ", line.Problems)}");
 
