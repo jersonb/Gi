@@ -11,12 +11,12 @@ public class SpedFileTests
             "|0001|L02C01|L02C02|L02C03|L02C04|",
             ""
         };
-        var spedFile = new SpedFile(lines);
 
+        var spedFile = new SpedFile(lines);
         Assert.Equal(2, spedFile.Lines.Count);
         Assert.Equal(1, spedFile.Lines.First().Key);
     }
-   
+
     [Fact]
     public void Test2()
     {
@@ -29,7 +29,7 @@ public class SpedFileTests
         var ex = Assert.Throws<ArgumentException>(() => new SpedFile(lines));
         Assert.Equal("Linha 2: Problema de abertura da linha", ex.Message);
     }
-   
+
     [Fact]
     public void Test3()
     {
@@ -42,7 +42,7 @@ public class SpedFileTests
         var ex = Assert.Throws<ArgumentException>(() => new SpedFile(lines));
         Assert.Equal("Linha 2: Problema de quantidade de caracteres no registro", ex.Message);
     }
-   
+
     [Fact]
     public void Test4()
     {
@@ -56,4 +56,3 @@ public class SpedFileTests
         Assert.Equal("Linha 2: Problema de fechamento de linha", ex.Message);
     }
 }
-
