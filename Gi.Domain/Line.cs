@@ -30,7 +30,8 @@ public struct Line
         IsValid = !Problems.Any();
         Content = content[2..^1];
     }
-
+    public static implicit operator Line(string line)
+        => new Line(line);
     public string Register { get; }
     public string[] Content { get; }
     public bool IsValid { get; }

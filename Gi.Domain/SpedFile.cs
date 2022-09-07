@@ -6,13 +6,14 @@ public struct SpedFile
     {
         Lines = new();
         var lineCount = 1;
+
         foreach (var readedLine in lines)
         {
             if (string.IsNullOrEmpty(readedLine))
                 continue;
-                
-            var line = new Line(readedLine);
-            
+
+            Line line = readedLine;
+
             if (!line.IsValid)
                 throw new ArgumentException($"Linha {lineCount}: {string.Join(", ", line.Problems)}");
 
