@@ -43,6 +43,12 @@ public class InvoiceTests
         }
         Assert.Equal(17, lines.Count());
         Assert.Equal(12, invoiceLines.Count());
+        Assert.Equal(4, invoices.Count);
+        var items = from invoice in invoices
+                from item in invoice.InvoiceItems
+                select item;
+        Assert.Equal(8, items.Count());
+        
     }
 }
 public class Invoice
@@ -51,6 +57,7 @@ public class Invoice
     {
         if(line.Register != RegisterName._8530)
             throw new Exception("foi aq 1");
+
         if(!lines.Any(l => l.Register != RegisterName._8535))
             throw new Exception("foi aq 2");
 
@@ -65,7 +72,7 @@ public class InvoiceItem
     public InvoiceItem(Line line)
     {
          if(line.Register != RegisterName._8535)
-            throw new Exception();
+            throw new Exception("foi aqui 3");
 
         ItemCode = line.Content[2];
         Cfop = line.Content[3];
