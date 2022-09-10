@@ -1,3 +1,4 @@
+using Gi.Domain.Models.ItemsPerInvoice;
 using Gi.Domain.Readers;
 
 namespace Gi.Domain;
@@ -22,11 +23,14 @@ public class SpedFile
             readedLines.Add(lineCount++, line);
         }
 
-        TaxAssessments = new TaxAssessmentsItemsReader(readedLines);
-        Invoices = new InvoicesReader(readedLines);
+        TaxAssessments = new(readedLines);
+        Invoices = new(readedLines);
+        Incentivized = new(TaxAssessments.Incentivized, Invoices.Items);
+        NonIncentivized = new(TaxAssessments.NonIncentivized, Invoices.Items);
     }
 
     public TaxAssessmentsItemsReader TaxAssessments { get; }
-
     public InvoicesReader Invoices { get; }
+    public IncentivizedItemsPerInvoice Incentivized { get; }
+    public NonIncentivizedItemsPerInvoice NonIncentivized { get; }
 }

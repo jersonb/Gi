@@ -1,4 +1,5 @@
 namespace Gi.Domain.Models;
+
 public class Item
 {
     public Item(Line line)
@@ -9,12 +10,11 @@ public class Item
         NcmCode = contents[3];
         Unit = contents[4];
         PercentageIncentivized = string.IsNullOrEmpty(contents[5]) ? "0,00" : contents[5];
-
     }
 
     public string Code { get; }
     public string Name { get; }
     public string NcmCode { get; }
-    public string Unit { get; set; }
+    public string Unit { get; }
     public string PercentageIncentivized { get; }
 }
