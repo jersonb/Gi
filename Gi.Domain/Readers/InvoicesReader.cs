@@ -11,7 +11,7 @@ public class InvoicesReader
            .OrderBy(line => line.Key)
            .Select(line => line.Value);
 
-        Items = new List<InvoiceItem>();
+        Items = new InvoiceItems();
 
         var number = string.Empty!;
         foreach (var line in invoiceLines)
@@ -23,5 +23,9 @@ public class InvoicesReader
         }
     }
 
-    public List<InvoiceItem> Items { get; }
+    public InvoiceItems Items { get; }
+
+    public class InvoiceItems : List<InvoiceItem>
+    {
+    }
 }
