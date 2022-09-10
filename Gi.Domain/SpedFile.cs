@@ -1,4 +1,4 @@
-using Gi.Domain.Models;
+using Gi.Domain.Readers;
 
 namespace Gi.Domain;
 
@@ -22,24 +22,13 @@ public class SpedFile
             Lines.Add(lineCount++, line);
         }
 
-        AllTaxAssessment = Lines
-         .Where(l => l.Value.Register == RegisterName._8515)
-         .Select(l => new TaxAssessment(l, Lines));
-
-        IncentivizedItems = from taxAssessment in AllTaxAssessment
-                            from item in taxAssessment.Items
-                            where taxAssessment.IsIncentivized
-                            select item;
-
-
-        NonIncentivizedItems = from taxAssessment in AllTaxAssessment
-                               from item in taxAssessment.Items
-                               where !taxAssessment.IsIncentivized
-                               select item;
+        TaxAssessments = new TaxAssessmentsReader(Lines);
+        Invoices = new InvoicesReader(Lines);
     }
-    public Dictionary<int, Line> Lines { get; }
-    public IEnumerable<TaxAssessment> AllTaxAssessment { get; }
-    public IEnumerable<Item> IncentivizedItems { get; }
-    public IEnumerable<Item> NonIncentivizedItems { get; }
 
+    public Dictionary<int, Line> Lines { get; }
+
+    public TaxAssessmentsReader TaxAssessments { get; }
+
+    public InvoicesReader Invoices { get; }
 }
