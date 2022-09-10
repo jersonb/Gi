@@ -1,6 +1,6 @@
 namespace Gi.Domain;
 
-public struct Line
+public class Line
 {
     public Line(string line)
     {
@@ -28,16 +28,17 @@ public struct Line
 
         Register = content[1];
         IsValid = !Problems.Any();
-  
-        var position =1;
+
+        var position = 1;
         foreach (var item in content[2..^1])
             Content.Add(position++, item);
-        
     }
+
     public static implicit operator Line(string line)
-        => new Line(line);
+        => new(line);
+
     public string Register { get; }
-    public Dictionary<int,string> Content { get; }
+    public Dictionary<int, string> Content { get; }
     public bool IsValid { get; }
     public IEnumerable<string> Problems { get; }
 }
