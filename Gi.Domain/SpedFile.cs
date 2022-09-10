@@ -6,7 +6,7 @@ public class SpedFile
 {
     public SpedFile(IEnumerable<string> lines)
     {
-        Lines = new();
+        var readedLines = new Dictionary<int, Line>();
         var lineCount = 1;
 
         foreach (var readedLine in lines)
@@ -19,16 +19,14 @@ public class SpedFile
             if (!line.IsValid)
                 throw new ArgumentException($"Linha {lineCount}: {string.Join(", ", line.Problems)}");
 
-            Lines.Add(lineCount++, line);
+            readedLines.Add(lineCount++, line);
         }
 
-        TaxAssessments = new TaxAssessmentsReader(Lines);
-        Invoices = new InvoicesReader(Lines);
+        TaxAssessments = new TaxAssessmentsItemsReader(readedLines);
+        Invoices = new InvoicesReader(readedLines);
     }
 
-    public Dictionary<int, Line> Lines { get; }
-
-    public TaxAssessmentsReader TaxAssessments { get; }
+    public TaxAssessmentsItemsReader TaxAssessments { get; }
 
     public InvoicesReader Invoices { get; }
 }

@@ -2,7 +2,7 @@ using Gi.Domain.Readers;
 
 namespace Gi.Domain.Tests.Models;
 
-public class InvoiceTests
+public class InvoiceItemTests
 {
     [Fact]
     public void Test1()
@@ -35,6 +35,6 @@ public class InvoiceTests
         var invoices = new InvoicesReader(lines);
 
         Assert.Equal(17, lines.Count);
-        Assert.Equal(4, invoices.Invoices.Count);
+        Assert.Equal(8, invoices.Items.Count);
     }
 }

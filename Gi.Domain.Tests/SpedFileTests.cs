@@ -3,21 +3,6 @@ namespace Gi.Domain.Tests;
 public class SpedFileTests
 {
     [Fact]
-    public void Test1()
-    {
-        var lines = new List<string>
-        {
-            "|0000|L01C01|L01C02|L01C03|L01C04|",
-            "|0001|L02C01|L02C02|L02C03|L02C04|",
-            ""
-        };
-
-        var spedFile = new SpedFile(lines);
-        Assert.Equal(2, spedFile.Lines.Count);
-        Assert.Equal(1, spedFile.Lines.First().Key);
-    }
-
-    [Fact]
     public void Test2()
     {
         var lines = new List<string>
@@ -75,7 +60,7 @@ public class SpedFileTests
         };
         var spedFile = new SpedFile(readedlines);
 
-        var taxAssessments = spedFile.TaxAssessments.AllTaxAssessment;
+        var taxAssessments = spedFile.TaxAssessments.All;
 
         Assert.Equal(2, taxAssessments.Count());
 
@@ -109,7 +94,7 @@ public class SpedFileTests
         };
         var spedFile = new SpedFile(readedlines);
 
-        Assert.Equal(4, spedFile.TaxAssessments.IncentivizedItems.Count());
-        Assert.Equal(3, spedFile.TaxAssessments.NonIncentivizedItems.Count());
+        Assert.Equal(4, spedFile.TaxAssessments.Incentivized.Count());
+        Assert.Equal(3, spedFile.TaxAssessments.NonIncentivized.Count());
     }
 }

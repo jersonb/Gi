@@ -8,23 +8,20 @@ public class InvoicesReader
     {
         var invoiceLines = lines
            .Where(line => line.Value.Register == RegisterName._8530 || line.Value.Register == RegisterName._8535)
-           .Reverse()
+           .OrderBy(line => line.Key)
            .Select(line => line.Value);
 
-        var invoiceItemsLines = new List<Line>();
-        Invoices = new List<Invoice>();
+        Items = new List<InvoiceItem>();
+
+        var number = string.Empty!;
         foreach (var line in invoiceLines)
         {
             if (line.Register == RegisterName._8530)
-            {
-                var invoice = new Invoice(line, invoiceLines);
-                Invoices.Add(invoice);
-                invoiceItemsLines = new List<Line>();
-            }
+                number = line?.Content[6];
             else
-                invoiceItemsLines.Add(line);
+                Items.Add(new InvoiceItem(line, number!));
         }
     }
 
-    public List<Invoice> Invoices { get; }
+    public List<InvoiceItem> Items { get; }
 }
