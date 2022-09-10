@@ -2,9 +2,9 @@
 
 namespace Gi.Domain.Readers;
 
-public class TaxAssessmentReader
+public class TaxAssessmentsReader
 {
-    public TaxAssessmentReader(Dictionary<int, Line> lines)
+    public TaxAssessmentsReader(Dictionary<int, Line> lines)
     {
         AllTaxAssessment = lines
          .Where(l => l.Value.Register == RegisterName._8515)
