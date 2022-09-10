@@ -2,10 +2,10 @@
 
 public class InvoiceItem
 {
-    public InvoiceItem(Line line)
+    public InvoiceItem(Line line, string invoiceNumber)
     {
         if (line.Register != RegisterName._8535)
-            throw new InvalidOperationException($"Registro inadequado para item de nota na linha |{line.Register}|{string.Join("|", line.Content)}|");
+            throw new InvalidOperationException($"Registro inadequado para item de nota na linha |{line.Register}|{string.Join("|", line.Content.Select(i => i.Value))}|");
 
         ItemCode = line.Content[2];
         Cfop = line.Content[3];
@@ -20,8 +20,11 @@ public class InvoiceItem
 
         if (!string.IsNullOrEmpty(IcmsString))
             Icms = decimal.Parse(IcmsString);
+
+        InvoiceNumber = invoiceNumber;
     }
 
+    public string InvoiceNumber { get; set; }
     public string ItemCode { get; }
     public string Cfop { get; }
     public string AmmountString { get; }
