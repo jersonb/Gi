@@ -75,7 +75,7 @@ public class SpedFileTests
         };
         var spedFile = new SpedFile(readedlines);
 
-        var taxAssessments = spedFile.AllTaxAssessment;
+        var taxAssessments = spedFile.TaxAssessmentReader.AllTaxAssessment;
 
         Assert.Equal(2, taxAssessments.Count());
 
@@ -89,6 +89,7 @@ public class SpedFileTests
         Assert.True(taxAssessments.Last().IsIncentivized);
         Assert.Equal(4, taxAssessments.Last().Items.Count());
     }
+
     [Fact]
     public void Test6()
     {
@@ -108,7 +109,7 @@ public class SpedFileTests
         };
         var spedFile = new SpedFile(readedlines);
 
-        Assert.Equal(4, spedFile.IncentivizedItems.Count());
-        Assert.Equal(3, spedFile.NonIncentivizedItems.Count());
+        Assert.Equal(4, spedFile.TaxAssessmentReader.IncentivizedItems.Count());
+        Assert.Equal(3, spedFile.TaxAssessmentReader.NonIncentivizedItems.Count());
     }
 }
