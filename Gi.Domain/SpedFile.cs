@@ -22,10 +22,13 @@ public class SpedFile
             Lines.Add(lineCount++, line);
         }
 
-        TaxAssessmentReader = new TaxAssessmentReader(Lines);
+        TaxAssessments = new TaxAssessmentsReader(Lines);
+        Invoices = new InvoicesReader(Lines);
     }
 
     public Dictionary<int, Line> Lines { get; }
 
-    public TaxAssessmentReader TaxAssessmentReader { get; }
+    public TaxAssessmentsReader TaxAssessments { get; }
+
+    public InvoicesReader Invoices { get; }
 }

@@ -1,3 +1,5 @@
+using Gi.Domain.Readers;
+
 namespace Gi.Domain.Tests.Models;
 
 public class InvoiceTests
@@ -26,24 +28,13 @@ public class InvoiceTests
             "|8540|4855,25|6109||||2|2|",
         };
 
-        var lines = readedLines.Select(l => new Line(l));
-        var invoiceLines = lines.Where(line => line.Register == RegisterName._8530 || line.Register == RegisterName._8535).Reverse();
+        var lines = readedLines
+            .Select((l, i) => new KeyValuePair<int, Line>(i, new Line(l)))
+            .ToDictionary(i => i.Key, v => v.Value);
 
-        var invoiceItemsLines = new List<Line>();
-        var invoices = new List<Invoice>();
-        foreach (var line in invoiceLines)
-        {
-            if (line.Register == RegisterName._8530)
-            {
-                var invoice = new Invoice(line, invoiceLines);
-                invoices.Add(invoice);
-                invoiceItemsLines = new List<Line>();
-            }
-            else
-                invoiceItemsLines.Add(line);
-        }
-        Assert.Equal(17, lines.Count());
-        Assert.Equal(12, invoiceLines.Count());
-        Assert.Equal(4, invoices.Count);
+        var invoices = new InvoicesReader(lines);
+
+        Assert.Equal(17, lines.Count);
+        Assert.Equal(4, invoices.Invoices.Count);
     }
 }
